@@ -1,0 +1,33 @@
+name: "VQASoftmax"
+input: "data"
+input_shape
+{
+    dim: 1
+    dim: 1324
+    dim: 1
+    dim: 1
+}
+layer {
+    name: "ip1"
+    type: "InnerProduct"
+    param {
+        lr_mult: 1
+        decay_mult: 1
+    }
+    param {
+        lr_mult: 2
+        decay_mult: 0
+    }
+
+    inner_product_param {
+        num_output: 1000
+    }
+    bottom: "data"
+    top: "ip1"
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "ip1"
+  top: "prob"
+}

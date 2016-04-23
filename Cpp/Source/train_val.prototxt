@@ -1,0 +1,73 @@
+name: "VQASoftmax"
+layer {
+    name: "data"
+    type: "Data"
+    include {
+        phase: TRAIN
+    }
+    data_param {
+        source: "VQA_train_lmdb"
+        backend: LMDB
+        batch_size: 100
+    }
+    top: "data"
+    top: "label"
+}
+layer {
+    name: "data"
+    type: "Data"
+    include {
+        phase: TEST
+    }
+    data_param {
+        source: "vqa_val_lmdb"
+        backend: LMDB
+        batch_size: 64
+    }
+    top: "data"
+    top: "label"
+}
+
+layer {
+    name: "ip1"
+    type: "InnerProduct"
+    param {
+        lr_mult: 1
+        decay_mult: 1
+    }
+    param {
+        lr_mult: 2
+        decay_mult: 0
+    }
+
+    inner_product_param {
+        num_output: 1000
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+        }
+    }
+    bottom: "data"
+    top: "ip1"
+}
+
+layer {
+    name: "accuracy"
+    type: "Accuracy"
+    bottom: "ip1"
+    bottom: "label"
+    top: "accuracy"
+    include {
+        phase: TEST
+    }
+}
+
+layer {
+    name: "loss"
+    type: "SoftmaxWithLoss"
+    bottom: "ip1"
+    bottom: "label"
+    top: "loss"
+}
