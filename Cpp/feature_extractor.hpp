@@ -2,7 +2,7 @@
 #define feature_extrator_hpp
 
 #include "data_transformer.hpp"
-
+#include <regex>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -44,4 +44,9 @@ public:
 
 };
 
+void split(std::vector<std::string>& elements, std::string str,
+           const std::string& regex);
+
+void split(std::vector<std::string>& elements, std::string str,
+           char regex);
 #endif /* feature_extrator_hpp */

@@ -180,3 +180,19 @@ std::vector<double> FeatureExtractor::extract(const cv::Mat &image)
     return std::vector<double>(feature_vector,
                                feature_vector + google_vector_length);
 }
+
+void split(std::vector<std::string>& elements, std::string str,
+           const std::string& regex)
+{
+    elements.clear();
+    std::regex re(regex);
+    std::sregex_token_iterator first{str.begin(), str.end(), re, -1}, last;
+    
+    std::move(first, last, std::back_inserter(elements));
+}
+
+void split(std::vector<std::string>& elements, std::string str,
+           char regex)
+{
+    split(elements, str, std::string{regex});
+}

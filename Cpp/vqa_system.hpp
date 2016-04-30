@@ -1,11 +1,13 @@
 #ifndef vqa_system_hpp
 #define vqa_system_hpp
 
+#include <map>
 #include <string>
 #include <fstream>
 #include <exception>
 #include <algorithm>
 #include <iterator>
+#include <functional>
 #include <vector>
 #include "feature_extractor.hpp"
 
@@ -14,7 +16,7 @@ using std::vector;
 
 class VQASystem
 {
-    
+    std::map<string, vector<double>> word_vec;
 private:
     FeatureExtractor fe;
     vector<string> label;
@@ -22,7 +24,9 @@ private:
     std::shared_ptr<caffe::Net<double>> softmax_net;
     
     void readLabel(const string &addre);
+    void readWordVec(const string &addre);
     vector<double> convertVerbalFeature(const string &addre);
+    vector<double> extractWordVec(const string &str);
     
 public:
     

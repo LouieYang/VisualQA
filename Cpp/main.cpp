@@ -13,7 +13,8 @@ int main()
                    "softmax_deploy.prototxt", "VQA_train_iter_300000.caffemodel");
     
     cv::Mat img = cv::imread("demo.jpg");
-    std::vector<std::string> res(vqas.getTopNAnswer(img, "demo.csv", 3));
+    std::vector<std::string> res(vqas.getTopNAnswer(img,
+                                                    "What is the weather like today?", 3));
     
     
     std::copy(res.begin(), res.end(), std::ostream_iterator<std::string>(std::cout, "\n"));

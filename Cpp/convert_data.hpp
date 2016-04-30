@@ -50,12 +50,6 @@ topLabel convert_label_topN(std::vector<iida_label>& vl,
 
 void convert_lmdb();
 
-void split(std::vector<std::string>& elements, std::string str,
-           const std::string& regex);
-
-void split(std::vector<std::string>& elements, std::string str,
-           char regex);
-
 void parallel_merge_feature(unsigned int start, unsigned int end,
                             std::vector<iidq_feature>* verbal_feature,
                             const std::string image_file_in,

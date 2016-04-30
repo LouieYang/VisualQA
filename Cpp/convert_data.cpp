@@ -432,19 +432,3 @@ std::string write_lmdb(std::vector<double> &feature_data, int label)
     
     return res;
 }
-
-void split(std::vector<std::string>& elements, std::string str,
-           const std::string& regex)
-{
-    elements.clear();
-    std::regex re(regex);
-    std::sregex_token_iterator first{str.begin(), str.end(), re, -1}, last;
-    
-    std::move(first, last, std::back_inserter(elements));
-}
-
-void split(std::vector<std::string>& elements, std::string str,
-           char regex)
-{
-    split(elements, str, std::string{regex});
-}
